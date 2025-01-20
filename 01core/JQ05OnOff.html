@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>JQ05OnOff</title>
+        <script src="../common/jquery/jquery-3.7.1.js"></script>
+        <script>
+            /*
+            on() 
+                : 기본 사용법은 bind()와 동일하다.
+                엘리먼트에 이벤트를 부여할 때 사용한다.
+                단, 동적으로 생성된 엘리먼트에도 이벤트를 부여할 수 있다.
+            off() 
+                : on()으로 부여한 이벤트를 제거할 때 사용한다.
+            */
+            $(function () {
+                // 버튼에 클릭이벤트 부여
+                $("#onMethod").on("click", function () {
+                    alert("#onMethod 버튼이 클릭되었습니다.");
+                });
+
+                // 앞에서 부여한 클릭이벤트 제거
+                $("#offMethod").on("click", function () {
+                    $("#onMethod").off("click");
+                    alert("#onMethod의 click이벤트가 해제되었습니다.");
+                });
+
+                // #div1에 클릭이벤트 부여
+                $("#div1").on("click", function () {
+                    alert("클릭이벤트 발생됨");
+                    /*
+                    after() 
+                        : 선택한 엘리먼트 다음에 인수로 전달된 엘리먼트를 동적으로 추가한다.
+                        #div1을 선택했으므로 그 다음 부분에 <div>를 추가한다.
+                    */
+                    $(this).after(
+                        "<div style='background-color:green;'>" +
+                            "동적으로 생성한 div</div>"
+                    );
+                });
+                // 여기까지만 보면 bind()와 동일하다.
+
+                /*
+                div2클래스 하위의 button 태그를 선택해서 click 이벤트를 추가한다.
+                CSS3에서 학습한 모든 셀렉터를 jQuery에서 사용할 수 있다.
+                */
+                $(".div2 button").on("click", function () {
+                    /*
+                    append()
+                        : after()와 동일하게 선택한 엘리먼트 하위에 
+                        인수로 주어진 엘리먼트를 동적으로 추가한다.
+                        (여기서는 ul태그 하위에 li를 추가한다.)
+                        after()와 추가하는 위치가 다르다.
+                    */
+                    $(".div2 ul").append("<li>추가된 li태그</li>");
+                });
+
+                /*
+                동적으로 생성된(즉 코드상으로 존재하지 않는) 엘리먼트에는 
+                bind()를 통해 이벤트를 추가할 수 없다.
+                하지만 on()을 이용하면 가능.
+                */
+
+                // div2 클래스에 생성된 <li>태그에 click 이벤트를 부여한다.
+                $(".div2").on("click", "li", function () {
+                    /*
+                    css()
+                        : JS의 style속성과 동일하게 엘리먼트의 스타일을 변경
+                        속성을 기술하는 방식은 js와 동일,
+                        하이픈은 제거하고 첫 글자를 대문자로 기술한다.
+                    */
+                    $(this).css("color", "red").css("fontSize", "1.8em");
+                });
+            });
+        </script>
+        <style>
+            div {
+                width: 200px;
+                height: 50px;
+                margin: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>on() / off() 메소드</h2>
+
+        <div id="div1" style="background-color: red">
+            미리 생성한 div(여기 눌러보삼)
+        </div>
+        <button id="onMethod">on()메소드 호출</button>
+        <button id="offMethod">off()메소드 호출</button>
+
+        <div class="div2">
+            <button>아이템 추가하기</button>
+            <ul>
+                <li>기존아이템1</li>
+                <li>기존아이템2</li>
+            </ul>
+        </div>
+    </body>
+</html>

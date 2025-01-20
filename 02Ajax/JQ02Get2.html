@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="../common/jquery/jquery-3.7.1.js"></script>
+        <script>
+            $(function () {
+                $("#btnJSON").click(function () {
+                    $.get(
+                        // 요청 url은 내부 json파일 사용
+                        "./common/02Contact.json",
+                        // 파라미터 생략 {}
+                        {},
+                        // 콜백함수 : 요청에 성공하면 rData로 JSON파일의 내용이 콜백됨
+                        function (rData, status, xhr) {
+                            console.log("status:",status,"xhr:", xhr);
+                            let str = "";
+                            /*
+                            $.each(데이터, 콜백함수(index, data))
+                            비동기함수에서 콜백받은 데이터를 기반으로 콜백함수를 반복호출.
+                            index는 0부터
+                            */
+                            $.each(rData.contacts, function (index, data) {
+                                console.log(index, data);
+                                // 배열 내부의 각 객체를 파싱해서 tr태그로 만들어준다.
+                                str +=
+                                    "<tr>" +
+                                    "<td>" +
+                                    data.no +
+                                    "</td>" +
+                                    "<td>" +
+                                    data.name +
+                                    "</td>" +
+                                    "<td>" +
+                                    data.tel +
+                                    "</td>" +
+                                    '<td><img src="' +
+                                    data.photo +
+                                    ' "></td>' +
+                                    "</tr>";
+                            });
+                            // <table> 태그 내부에 추가한다.
+                            $("#displayTable").append(str);
+                        }
+                    );
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <h2>$.get() 메소드 사용하기</h2>
+
+        <h3>JSON파일 읽어오기</h3>
+        <button id="btnJSON">JSON데이터 읽어오기</button>
+        <table border="1" id="displayTable">
+            <tr>
+                <td>no</td>
+                <td>name</td>
+                <td>tel</td>
+                <td>photo</td>
+            </tr>
+        </table>
+    </body>
+</html>

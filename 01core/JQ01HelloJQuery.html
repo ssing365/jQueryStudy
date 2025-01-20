@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- jQuery를 사용하기 위해 HTML문서에 Core파일을 링크해야한다.
+     내부링크 혹은 외부링크(CDN)를 사용할 수 있다. -->
+    <script src="../common/jquery/jquery-3.7.1.js"></script>
+    <script>
+        /*
+        jQuery의 Entry Point(출발점)을 아래 4가지 방법을 통해 생성할 수 있다.
+        HTML문서의 load가 완료된 후 실행한다는 의미를 가지고 있다.
+        */
+        //방법1
+        //$(document).ready(function(){
+        //    alert("jQuery 시작하기1");
+        //});
+        //방법2
+        //$().ready(function(){
+        //    alert("jQuery 시작하기2")
+        //});
+        //방법3
+        //jQuery(function(){
+        //    alert("jQuery 시작하기3")
+        //});
+        //방법4
+        $(function(){
+           alert('jQuery 시작하기4');
+            console.log("jQuery Entry point로 가장 많이 사용됨");
+        });
+    </script>
+</head>
+<body>
+    <h2>jQuery 시작하기</h2>
+    <hr>
+    <p>4가지 방법을 통해 jQuery의 Entry point를 만들 수 있다.</p>
+    <script>
+        alert("HTML문서의 끝");
+    </script>
+</body>
+</html>

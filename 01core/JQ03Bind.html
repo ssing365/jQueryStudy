@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../common/jquery/jquery-3.7.1.js"></script>
+    <script>
+        /*
+        bind() : 엘리먼트에 이벤트를 부여할 때 사용
+        unbind() : bind()를 통해 부여한 이벤트를 해제할 때 사용
+        - 메서드 체인을 사용해서 여러 개의 이벤트를 연결할 수 있다.
+        */
+        $(
+            function(){
+                /*
+                아이디 셀렉터를 통해 div태그를 얻어온 후 
+                메서드 체인으로 3개의 이벤트를 부여한다.
+                */
+                $("#click_change")
+                .bind("mouseover", function(){
+                    document.getElementById("click_change")
+                    .style.backgroundColor="red";
+                })
+                .bind("mouseout", function(){
+                    $("#click_change").get(0)
+                    .style.backgroundColor="white";
+                })
+                .bind("click", function(){
+                    // 클릭했을 때는 엘리먼트 사이에 있는 컨텐츠를 얻어와서 경고창으로 띄워준다.
+                    // this를 통해 현재 선택된 #click_change를 사용할 수 있다.
+                    alert($(this).text());
+                });
+
+                // 버튼을 클릭하면 alert()를 실행한다.
+                $("#btnClick").click(function(){
+                    alert("버튼 클릭됨");
+                });
+                
+                // 이벤트 제거 버튼을 클릭하면
+                $("#btnEventClear").bind("click", function(){
+                    // btnClick에 부여된 이벤트가 제거된다
+                    $("#btnClick").unbind("click");
+                    alert("#btnClick의 이벤트가 제거됨");
+                });
+            }
+        );
+    </script>
+    
+    <style>
+        div{
+            width: 500px; height: 130px;
+            text-align: center; font-size: 1.5em;
+            border: 1px dotted black;
+        }
+        input { width: 200px; height: 100px; margin-top: 20px;}
+    </style>
+</head>
+<body>
+    <h2>bind() 메소드</h2>
+    <div id="click_change">
+        마우스를 over하면 red
+        out하면 white
+        click하면 여기 내용이 경고창으로 뜬대요!
+    </div>
+
+    <h2>unbind() 메소드</h2>
+    <input type="button" id="btnClick" value="난버튼">
+    <input type="button" id="btnEventClear" value="이벤트제거버튼">
+</body>
+</html>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<명함>
+    <성명 성="Tom" 이름="Cruise">톰크루즈</성명>
+    <직위>영화배우</직위>
+    <TEL>02-7979-7444</TEL>
+    <Mobile>010-1412-1234</Mobile>
+    <e-mail>mission@movie.com</e-mail>
+    <주소>서울 금천구</주소>
+    <homepage>http://imf-team.com</homepage>
+    <copyright>더조은IT</copyright>
+</명함>
+<!-- 
+XML(eXtensible Markup Language)
+: 확장 가능한 마크업 언어로 사람과 기계가 모두 읽기 편한 구조를 가짐.
+HTML과 다른 점은 보여주기 위한 목적이 아니라 
+단순히 데이터를 저장하고 전달하는 목적으로 만들어졌다.
+ -->

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="../common/jquery/jquery-3.7.1.js"></script>
+        <script>
+            /*
+            each() 
+                : 셀렉터를 통해 얻어온 엘리먼트의 개수만큼 자동으로 반복해 실행하는 함수
+                반복시 index는 0부터 차례로 증가, 필요없으면 생략가능
+            attr()
+                : 엘리먼트에 속성을 부여하거나 속성을 읽어올 때 사용하는 함수
+                id, class, name과 같은 속성들을 부여할 수 있다.
+            */
+            $(function () {
+                $("#btn1").click(function () {
+                    // div 태그선택자로 현재 페이지의 모든 div를 선택 후 반복
+                    $("div").each(function (index) {
+                        /*
+                        각 div태그에 id와 style속성 부여
+                        id는 index를 사용해 div0~2로 부여된다.
+                        */
+                        $(this).attr({
+                            id: "div" + index,
+                            style: "border:1px solid red; width:100px; height:100px;",
+                        });
+                    });
+                });
+
+                // text()함수를 통해 태그 사이의 내용을 읽어 alert()로 출력
+                $("#btn2").click(function () {
+                    alert($("#div1").text());
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <h2>each() 메소드</h2>
+
+        <div>index:0 -> div1</div>
+        <div>index:1 -> div2</div>
+        <div>index:2 -> div3</div>
+
+        <button id="btn1">div에 style적용하기</button>
+        <button id="btn2">index1의 text()</button>
+    </body>
+</html>

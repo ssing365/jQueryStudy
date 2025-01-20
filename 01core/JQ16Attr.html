@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../common/jquery/jquery-3.7.1.js"></script>
+    <script>
+        /*
+        attr() : 선택한 DOM에 속성을 부여하거나 얻어올 때 사용한다.
+            방법1 : (셀렉터).attr(속성명, 값);
+            => 메서드 체인을 통해 여러 개의 속성을 부여할 수 있다.
+            방법2 : (셀렉터).attr({속성명:값});
+            => JS객체 사용으로 2개 이상의 속성을 부여할 수 있다.
+        removeAttr() : 속성 제거 시 사용
+        */
+        $(function(){
+            /*
+            JS에서 사용했던 모든 이벤트와 동일한 이름의 함수가 
+            jQuery에 정의되어있으므로 아래와같이 사용할 수 있다.
+            */
+            $("#btn1").click(function(){
+                // btn1을 클릭하면 attr()함수를 메서드 체인 형태로 호출한다.
+                $("#viewImg").attr("src","../images/amazon.png")
+                .attr("width",'300px');
+            })
+            $("#btn2").mouseover(function(){
+                // btn2에 마우스를 올리면 속성 부여
+                $("#viewImg").attr("src","../images/naver.png")
+                .attr("width",function(){return '200px'});
+                // 값 설정시 익명함수를 통해 조건문, 반복문 등 프로그래밍 요소를 추가할 수 있다.
+            })
+            $("#btn3").mouseout(function(){
+                /* 마우스를 올렸다가 내렸을 때 실행된다. 
+                JSON객체로 2개 이상의 속성을 부여한다. */
+                $("#viewImg").attr("src","../images/chosun.png").attr("width",'400px');
+            })
+            // 속성 제거
+            $("#btnDel").click(function(){
+                // <select>에서 선택한 값(value)을 읽어온다.
+                const attrName = $("#attrSelect option:selected").val();
+                // <img>에 부여된 속성 제거
+                $("#viewImg").removeAttr(attrName);
+                alert(attrName+"속성이 제거됨");
+            })
+            
+        })
+    </script>
+</head>
+<body>
+    <h2>attr(), removeAttr() 메서드</h2>
+	
+	<div>
+		<img src="../images/amazon.png" id="viewImg" />
+	</div>
+	
+	<div>
+		<button id="btn1">amazon.png이미지로변경</button>
+		<button id="btn2">naver.png이미지로변경</button>
+		<button id="btn3">chosun.png이미지로변경</button>
+	</div>
+	
+	<div>
+		<h3>위 변경 이미지를 먼저 누른후 속성제거 버튼을 누르시오</h3>
+		<select id="attrSelect">
+			<option value="src">src속성</option>
+			<option value="width">width속성</option>
+		</select>
+		<button id="btnDel">속성제거</button>
+	</div>	
+</body>
+</html>
