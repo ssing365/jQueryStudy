@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="../common/jquery/jquery-3.7.1.js"></script>
+        <script>
+            /*
+            $.ajax() 
+                : load(), get(), post()의 모든 기능을 갖고 있는 활용빈도가 가장 높은 ajax 함수
+                  별도의 인수가 존재하지 않고 JSON형태의 인수 하나만 존재한다.
+                인수의 속성
+                - url : 요청할 서버 경로
+                - type : 전송방식(get, post 등)
+                - dataType : 콜백데이터 형식. json, xml, script, text, html 지정가능
+                - contentType : 전송방식에 따른 콘텐츠 타입 지정
+                - data : 요청 시 전송할 파라미터로 JSON객체로 표현
+                - success : 요청에 성공할 경우 호출되는 콜백함수
+                - error : 요청에 실패할 경우 호출되는 콜백함수
+            */
+            $(function () {
+                $("#ajaxBtn").click(function () {
+                    $.ajax({
+                        url: "./common/03JsData.js",
+                        type: "get", // 전송방식
+                        dataType: "script", // 콜백데이터의 형식을 JS로 지정
+
+                        /* 
+                        요청 성공시 1 - ajax함수 내부에 익명함수로 정의 
+                        */
+                        success: function (resData) {
+                            /* 
+                            매개변수(resData)로 JS의 모든 내용이 콜백된다.
+                            즉 해당 문서에는 MyAlert()함수가 없지만, 요청에 성공하면 
+                            콜백된 내용이 현재 문서에 포함되므로 호출가능해진다.
+                            */
+                            MyAlert("Hello", " AJAX");
+                            // 콜백받은 내용을 현재 문서에 추가
+                            $("#ajaxDisplay").html(resData);
+                        },
+
+                        /* 
+                        요청 성공시 2 - 일반 JS함수로 외부에 정의한 후 이름만 기술해 호출
+                        */
+                        // success : sucFunc,
+
+                        // 요청 실패시. 매개변수로 여러 원인을 파악할 수 있다.
+                        error: function (errData) {
+                            console.log(errData);
+                            console.log(errData.state, errData.statusText);
+                        },
+                    });
+                });
+            });
+            function sucFunc(resData) {
+                alert("$.ajax()메서드 요청성공");
+                $("#ajaxDisplay").html(resData);
+            }
+        </script>
+    </head>
+    <body>
+        <h2>$.ajax()메서드 사용하기</h2>
+        <button id="ajaxBtn">ajax()메서드 실행하기</button>
+
+        <div id="ajaxDisplay">ajax결과를 여기 디스플레이</div>
+    </body>
+</html>

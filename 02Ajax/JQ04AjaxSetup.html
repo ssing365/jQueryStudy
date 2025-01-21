@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        /*
+        $.ajaxSetup()
+            : 동일하게 반복되는 $.ajax()의 인자를 설정해 반복을 줄일 수 있다.
+            type, dataType등 기본적으로 사용되는 인자들을 묶는다.
+        */
+        $(function(){
+            $.ajaxSetup({
+                url:'./common/04JSONData.json',
+                dataType:"json"
+            });
+            $("#btn").click(function(){
+                $.ajax({
+                    /* 
+                    위에서 setup한 두 항목을 제외하고 나머지 인자만 정의
+                    즉 ajaxSetup()메서드는 ajax()메서드의 부모 역할이라고 볼 수 있다.
+                    */
+                    success:function(responseData){
+                        // 요청 성공시 JSON배열이 콜백되므로 each()로 반복
+                        $.each(responseData, function(index,value){
+                            console.log(index,value);
+
+                            // JSON객체 파싱은 .과 []를 사용할 수 있다.
+                            let htmlStr = "<tr>";
+                            htmlStr += " <td>" +(index+1)+"</td>";
+                            htmlStr += " <td>" +value.name+"</td>";
+                            htmlStr += " <td>" +value["age"]+"</td>";
+                            htmlStr += " <td>" +value["주소"]+"</td>";
+                            htmlStr += "   </tr>";
+
+                            // 테이블 내부 <tr>태그 뒷부분에 콘텐츠 추가
+                            $("#tbl1").append(htmlStr);
+                        })
+                    },
+                    error:errFunc
+                })
+            })
+        })
+        function errFunc(errData){
+            alert("실패 : "+errData.status+":"+errData.statusText);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>$.ajaxSetup()메서드 사용하기</h2>
+
+        <table border="1" id="tbl1">
+            <tr>
+                <td>No</td>
+                <td>이름</td>
+                <td>나이</td>
+                <td>출신지역</td>
+            </tr>
+        </table>
+        
+        <button id="btn">JSON데이터 가져오기</button>
+
+    </div>
+    
+</body>
+</html>

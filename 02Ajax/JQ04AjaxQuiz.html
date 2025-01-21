@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script>
+            $(function () {
+                $("#btnJSON").click(function () {
+                    $.ajax({
+                        // url:"https://sample.bmaster.kro.kr/contacts?pageno=7",
+                        url: "https://sample.bmaster.kro.kr/contacts",
+                        type: "get",
+                        // 전송할 파라미터. JSON객체 형식으로 작성한다.
+                        data: { pageno: $("#pageno").val() },
+                        // 콜백데이터 형식은 JSON으로 지정.
+                        dataType: "json",
+                        success: function (rData) {
+                            let htmlStr ='';
+                            $.each(rData.contacts, function (index, data) {
+                                console.log(index, data);
+
+                                // JSON객체 파싱은 .과 []를 사용할 수 있다.
+                                htmlStr += "<tr>";
+                                htmlStr += " <td>" + data.no + "</td>";
+                                htmlStr += " <td>" + data.name + "</td>";
+                                htmlStr += " <td>" + data["tel"] + "</td>";
+                                htmlStr +=
+                                    " <td> <img src='" +
+                                    data["photo"] +
+                                    "'></td>";
+                                htmlStr += "   </tr>";
+
+                                // $("#tbl1").append(htmlStr);
+                            });
+                            
+                            $("#tbl1").html(htmlStr);
+                        },
+                        error: errFunc,
+                    });
+                });
+            });
+            function errFunc(errData) {
+                alert("실패 : " + errData.status + ":" + errData.statusText);
+            }
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <h2>$.ajax()메서드 사용하기</h2>
+
+            <select id="pageno">
+                <option value="1">1페이지</option>
+                <option value="2">2페이지</option>
+                <option value="3">3페이지</option>
+                <option value="4">4페이지</option>
+                <option value="5">5페이지</option>
+                <option value="6">6페이지</option>
+                <option value="7">7페이지</option>
+                <option value="8">8페이지</option>
+                <option value="9">9페이지</option>
+                <option value="10">10페이지</option>
+            </select>
+
+            <button id="btnJSON">JSON데이터 가져오기</button>
+
+            <table border="1">
+                <tr>
+                    <th>No</th>
+                    <th>Name</th>
+                    <th>Tel</th>
+                    <th>Photo</th>
+                </tr>
+                <tbody id="tbl1"></tbody>
+            </table>
+        </div>
+    </body>
+</html>
