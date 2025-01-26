@@ -11,7 +11,7 @@
                 /*
                 jQuery선택자 $("input")과 $(":input")차이
                 $("input") : HTML 문서에서 <input> 태그만 선택
-                $(":input") : 사용자 입력 가능한 모든 요소 선택(<textarea?)
+                $(":input") : 사용자 입력 가능한 모든 요소 선택(<textarea>, select, button)
 
                 */
                 $("#btn1").click(function(){
@@ -33,7 +33,7 @@
                 $("#btn2").click(function(){
                     let str = "";
                     // 현재 문서에서 모든 <form>의 하위태그 선택 후 반복
-                    $(":inpt").each(function(){
+                    $(":input").each(function(){
                         str += "태그명 : " +this.tagName;
                         str += "\n";
                         str += "Typed의 속성값: " +$(this).attr("type");
